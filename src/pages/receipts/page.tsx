@@ -16,6 +16,15 @@ export default function ReceiptsPage() {
   const [filters, setFilters] = useState<FilterItem[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState({
+    numPages: 0,
+    perPage: 10,
+    next: null,
+    previous: null,
+    count: 0,
+    totalCount: 0,
+  });
 
   const fetchReceipts = useCallback(() => {
     const params: Record<string, string> = {};
@@ -35,10 +44,21 @@ export default function ReceiptsPage() {
       }
     });
 
+    params.page = String(pagination.next || 1);
+    params.perPage = String(pagination.perPage);
+
     receiptsService.getReceipts(params).then((response) => {
       setReceipts(response.results);
+      setPagination({
+        numPages: response.numPages,
+        perPage: response.perPage,
+        next: response.next,
+        previous: response.previous,
+        count: response.count,
+        totalCount: response.totalCount,
+      });
     });
-  }, [searchQuery, sort, filters]);
+  }, [searchQuery, sort, filters, pagination]);
 
   const handleViewPDF = (id: string) => {
     receiptsService.getReceiptPDF(id).then((response) => {
@@ -85,6 +105,7 @@ export default function ReceiptsPage() {
           setFilters={setFilters}
           setSearchQuery={setSearchQuery}
           onRowClick={handleViewPDF}
+          page={page}
         />
       </div>
 

@@ -40,6 +40,7 @@ interface DataTableProps<TData, TValue> {
     values: { key: string; label: string; isSelected: boolean }[];
   }[];
   onRowClick?: (id: string) => void;
+  page: number;
 }
 
 export function DataTable<TData, TValue>({
@@ -54,6 +55,7 @@ export function DataTable<TData, TValue>({
   sortingList,
   filterList,
   onRowClick,
+  page,
 }: DataTableProps<TData, TValue>) {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -258,7 +260,7 @@ export function DataTable<TData, TValue>({
       </div>
       <div className="flex items-center justify-center gap-2 mt-4">
         <button className="px-3 py-1 bg-transparent text-black">&lt;</button>
-        <span className="ml-2 mr-2">1</span>
+        <span className="ml-2 mr-2">{page}</span>
         <button className="px-3 py-1 bg-transparent text-black">&gt;</button>
       </div>
     </div>

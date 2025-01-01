@@ -174,6 +174,15 @@ export default function EmployeesPage() {
     value: string | null;
   }>({ key: null, value: null });
   const [filters, setFilters] = useState<FilterItem[]>([]);
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState({
+    numPages: 0,
+    perPage: 10,
+    next: null,
+    previous: null,
+    count: 0,
+    totalCount: 0,
+  });
 
   const fetchEmployees = useCallback(() => {
     const params: Record<string, string> = {};
@@ -193,8 +202,19 @@ export default function EmployeesPage() {
       }
     });
 
+    params.page = String(pagination.next || 1);
+    params.perPage = String(pagination.perPage);
+
     employeesService.getEmployees(params).then((response) => {
       setEmployees(response.results);
+      setPagination({
+        numPages: response.numPages,
+        perPage: response.perPage,
+        next: response.next,
+        previous: response.previous,
+        count: response.count,
+        totalCount: response.totalCount,
+      });
     });
   }, [searchQuery, sort, filters]);
 
@@ -233,6 +253,7 @@ export default function EmployeesPage() {
         setSort={setSort}
         setFilters={setFilters}
         setSearchQuery={setSearchQuery}
+        page={page}
       />
     </div>
   );

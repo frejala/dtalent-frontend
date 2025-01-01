@@ -26,7 +26,7 @@ import { FilterItem } from "@/interfaces/filter";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  data: any[];
   searchQuery: string;
   setSearchQuery: (val: string) => void;
   sort: any;
@@ -39,6 +39,7 @@ interface DataTableProps<TData, TValue> {
     label: string;
     values: { key: string; label: string; isSelected: boolean }[];
   }[];
+  onRowClick?: (id: string) => void;
 }
 
 export function DataTable<TData, TValue>({
@@ -52,6 +53,7 @@ export function DataTable<TData, TValue>({
   setFilters,
   sortingList,
   filterList,
+  onRowClick,
 }: DataTableProps<TData, TValue>) {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -196,10 +198,13 @@ export function DataTable<TData, TValue>({
         <Table>
           <TableHeader className="bg-blue-500">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="text-center">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} className="text-white">
+                    <TableHead
+                      key={header.id}
+                      className="text-white text-center"
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -212,15 +217,23 @@ export function DataTable<TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody className="bg-gray-200">
+          <TableBody className="bg-gray-200 text-center">
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className={
+                    onRowClick ? "cursor-pointer text-center" : "text-center"
+                  }
+                  onClick={() => {
+                    if (onRowClick) {
+                      onRowClick(row.original.id);
+                    }
+                  }}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="text-center">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()

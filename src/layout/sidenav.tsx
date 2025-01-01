@@ -20,7 +20,7 @@ export default function Sidenav() {
 
       <nav className="flex-1 p-4 space-y-2">
         <a
-          href="#"
+          href="employees"
           className="
             flex 
             items-center 
@@ -36,7 +36,7 @@ export default function Sidenav() {
         </a>
 
         <a
-          href="#"
+          href="receipts"
           className="
             flex 
             items-center 

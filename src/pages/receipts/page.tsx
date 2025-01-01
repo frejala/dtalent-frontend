@@ -58,7 +58,7 @@ export default function ReceiptsPage() {
         totalCount: response.totalCount,
       });
     });
-  }, [searchQuery, sort, filters, pagination]);
+  }, [searchQuery, sort, filters]);
 
   const handleViewPDF = (id: string) => {
     receiptsService.getReceiptPDF(id).then((response) => {

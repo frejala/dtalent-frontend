@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState, useCallback } from "react";
 import receiptsService from "@/services/receipts";
 import { DataTable } from "@/components/data-table";

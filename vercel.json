@@ -1,16 +1,8 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/receipts",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/employees",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/login",
-      "destination": "/index.html"
+      "src": "/[^.]+",
+      "dest": "/"
     }
   ]
 }

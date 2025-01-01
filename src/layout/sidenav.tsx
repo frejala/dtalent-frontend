@@ -3,7 +3,7 @@ import { useUserContext } from "@/context/useUser";
 import GroupIcon from "@mui/icons-material/Group";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import {
@@ -43,8 +43,8 @@ export default function Sidenav() {
       </div>
 
       <nav className="flex-1 p-4 space-y-2">
-        <a
-          href="employees"
+        <Link
+          to="employees"
           className="
             flex 
             items-center 
@@ -57,10 +57,10 @@ export default function Sidenav() {
         >
           <GroupIcon />
           <span>Empleados</span>
-        </a>
+        </Link>
 
-        <a
-          href="receipts"
+        <Link
+          to="receipts"
           className="
             flex 
             items-center 
@@ -73,7 +73,7 @@ export default function Sidenav() {
         >
           <ReceiptIcon />
           <span>Recibos</span>
-        </a>
+        </Link>
       </nav>
 
       <div className="border-t border-gray-800 p-4">

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, useCallback } from "react";
 import employeesService from "@/services/employees";
 import { DataTable } from "@/components/data-table";
@@ -15,7 +13,8 @@ export default function EmployeesPage() {
     value: string | null;
   }>({ key: null, value: null });
   const [filters, setFilters] = useState<FilterItem[]>([]);
-  const [page, setPage] = useState(1);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [page, _] = useState(1);
   const [pagination, setPagination] = useState({
     numPages: 0,
     perPage: 10,

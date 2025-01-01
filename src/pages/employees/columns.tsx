@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ColumnDef } from "@tanstack/react-table";
 import EditIcon from "@mui/icons-material/Edit";
@@ -45,7 +44,7 @@ export const columns: ColumnDef<any>[] = [
   {
     id: "actions",
     header: "",
-    cell: ({ row }) => (
+    cell: () => (
       <div className="flex space-y-2">
         <button className="text-blue-500">
           <EditIcon />

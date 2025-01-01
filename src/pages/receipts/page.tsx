@@ -17,7 +17,7 @@ export default function ReceiptsPage() {
   const [filters, setFilters] = useState<FilterItem[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
-  const [page, setPage] = useState(1);
+  const [page, _] = useState(1);
   const [pagination, setPagination] = useState({
     numPages: 0,
     perPage: 10,

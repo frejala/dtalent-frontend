@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import employeesService from "@/services/employees";
 import { DataTable } from "@/components/data-table";
 import { columns } from "./columns";
@@ -175,7 +175,7 @@ export default function EmployeesPage() {
   }>({ key: null, value: null });
   const [filters, setFilters] = useState<FilterItem[]>([]);
 
-  const fetchEmployees = () => {
+  const fetchEmployees = useCallback(() => {
     const params: Record<string, string> = {};
 
     if (searchQuery) {
@@ -196,11 +196,11 @@ export default function EmployeesPage() {
     employeesService.getEmployees(params).then((response) => {
       setEmployees(response.results);
     });
-  };
+  }, [searchQuery, sort, filters]);
 
   useEffect(() => {
     fetchEmployees();
-  }, [searchQuery, sort, filters]);
+  }, [fetchEmployees]);
 
   return (
     <div className="bg-gray-100 min-h-screen p-10">

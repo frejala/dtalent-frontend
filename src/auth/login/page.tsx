@@ -4,11 +4,13 @@ import {
   FloatingInput,
   FloatingLabel,
 } from "@/components/ui/floating-label-input";
+import { useUserContext } from "@/context/useUser";
 import authService from "@/services/auth";
 import { useNavigate } from "react-router";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { setUser } = useUserContext();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -20,8 +22,9 @@ export default function LoginPage() {
     authService
       .login({ username, password })
       .then((response) => {
-        console.log("response: ", response);
         localStorage.setItem("token", response.token);
+        localStorage.setItem("user", JSON.stringify(response.user));
+        setUser(response.user);
         navigate("/employees");
       })
       .catch(() => {
